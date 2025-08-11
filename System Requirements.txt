@@ -1,0 +1,16 @@
+System Requirements:
+
+    Python Version:
+        Python 3.x (recommended Python 3.7 or later).
+
+
+    Software Requirements:
+
+    Python Packages:
+pip install numpy tensorflow matplotlib pillow scikit-learn
+
+     	 numpy
+       	 tensorflow (version 2.x)
+       	 matplotlib
+         pillow (PIL)
+         scikit-learn
