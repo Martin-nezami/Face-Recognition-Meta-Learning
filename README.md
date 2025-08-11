@@ -132,11 +132,6 @@ A: That’s exactly what meta‑learning is good at—fine‑tune with a handful
 
 ---
 
-## 🧭 Quick Start to Upload on GitHub (no local Git needed)
 
-1. Create a **new repository** on GitHub.
-2. Click **Add file → Upload files**.
-3. Drag‑and‑drop: `Face recognition.ipynb`, `dataset/`, `requirements.txt`, `.gitignore`, `README.md`, and `LICENSE`.
-4. Add a commit message like “Initial upload” and **Commit changes**.
 
 Happy experimenting! 🎉
