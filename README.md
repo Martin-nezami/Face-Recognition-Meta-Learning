@@ -1,137 +1,62 @@
-# Face-Recognition-Meta-Learning
-Face recognition using Siamese CNN + Model-Agnostic Meta-Learning (MAML), implemented in TensorFlow and Jupyter, trained on the ORL Faces dataset.
-# Face Recognition Using Meta‑Learning (Siamese + MAML)
+# Face Recognition Using Meta-Learning
 
-This repository contains a Jupyter Notebook that trains a **Siamese Neural Network** with **Model‑Agnostic Meta‑Learning (MAML)** for face recognition on a small grayscale face dataset (PGM format).
+## Overview
+This project implements a face recognition system using Model-Agnostic Meta-Learning (MAML). The system is designed to recognize individuals from facial images by leveraging meta-learning techniques. The goal is to enable the model to quickly adapt to new face recognition tasks with minimal training data.
 
-> **Why meta‑learning?**  
-> Meta‑learning helps a model **adapt quickly** to new identities with only a few examples (few‑shot learning), which is practical when you don’t have many labeled images per person.
 
----
+## Project Structure
+The project is structured as follows:
 
-## 📂 Project Contents
+1. **Data Loading and Preprocessing**: Reads facial images from the ORL Faces dataset, prepares pairs of genuine (same person) and impostor (different person) images, and splits them into training and testing sets.
 
-- `Face recognition.ipynb` — the complete, runnable notebook (data loading, preprocessing, model, training, evaluation).
-- `dataset/` — grayscale face images arranged by subject folder (e.g., `s1`, `s2`, …).
-- `readme.md` — (original project notes; superseded by this README).
-- `System Requirements.txt` — quick dependency list.
+2. **Siamese Neural Network**: Implements a Siamese network architecture to learn embeddings for facial images. It includes convolutional layers, pooling layers, dropout for regularization, and dense layers for feature extraction.
 
-A quick peek at the dataset layout:
+3. **Model-Agnostic Meta-Learning (MAML)**: Utilizes MAML to train the Siamese network across multiple face recognition tasks. MAML facilitates fast adaptation to new tasks by updating the model parameters based on support and query sets from each task.
 
-```
-dataset/
-└── orl_faces/
-    └── README
-```
+4. **Training Loop**: Implements the meta-training loop where batches of tasks are sampled. For each task, support and query sets are used to update the model via the inner loop (task-specific adaptation) and compute gradients for the outer loop (meta-update).
 
-> Each `sX` folder represents one person and includes multiple `.pgm` images with varying pose/lighting.
+5. **Evaluation**: Evaluates the meta-learned model on the test dataset by calculating accuracy, generating confusion matrices, and visualizing sample predictions. It also computes precision, recall, F1-score, and support for detailed performance analysis.
 
----
 
-## 🧰 Requirements
 
-- **Python 3.8+** (3.7+ should work)
-- Jupyter (or VS Code with the Jupyter extension)
-- Packages in `requirements.txt`
+## Setup and Installation
+### Prerequisites
 
-Install everything into a virtual environment:
+- ```Python 3.x
+- ``pip (Python package installer)``
 
+### Required Libraries
+Install the necessary libraries using pip:  
 ```bash
-# create & activate a virtual env (one option)
-python -m venv .venv
-# Windows: .venv\Scripts\activate
-# macOS/Linux:
-source .venv/bin/activate
-
-# install deps
-pip install -r requirements.txt
+pip install numpy tensorflow matplotlib pillow scikit-learn
 ```
 
-If you prefer, the minimal set is:
-```
-numpy
-tensorflow>=2.0
-matplotlib
-Pillow
-scikit-learn
-```
 
----
+## Implementation Details
+### Data Loading
+The ORL Faces dataset is used for face recognition tasks. Images are preprocessed into pairs of genuine and impostor sets, normalized, and split into training and testing sets.
 
-## 🚀 How to Run
+### Siamese Neural Network
+The base network architecture extracts features from facial images. It includes convolutional layers for feature extraction, pooling layers for dimensionality reduction, and dropout layers for regularization.
 
-1. **Open the notebook**  
-   Launch Jupyter and open `Face recognition.ipynb`:
-   ```bash
-   jupyter notebook
-   # or
-   jupyter lab
-   ```
-   In VS Code, just open the notebook and select your Python interpreter (the `.venv`).
+### Model-Agnostic Meta-Learning (MAML)
+MAML is applied to facilitate rapid adaptation to new face recognition tasks. It involves an inner loop for task-specific adaptation (updating weights) and an outer loop for meta-update across tasks using RMSprop optimizer.
 
-2. **Run cells top to bottom**  
-   The notebook:
-   - Loads images from `dataset/`
-   - Preprocesses (resize/normalize)
-   - Builds a **Siamese CNN** backbone
-   - Trains with **MAML** (inner loop: fast adaptation; outer loop: meta‑update)
-   - Evaluates with metrics such as accuracy/precision/recall and a confusion matrix
+### Training Loop
+The meta-training loop runs for multiple epochs, sampling batches of tasks. Each task batch undergoes inner updates to adapt the model, followed by outer updates to refine model parameters based on meta-gradients.
 
-3. **Adjust hyperparameters (optional)**  
-   Look for the training config cell and tweak batch size, inner/outer steps, learning rates, and train/test split.
+### Evaluation and Analysis
+The trained model is evaluated on the test dataset to assess its face recognition performance. Metrics such as accuracy, confusion matrix, precision, recall, F1-score, and support are computed and visualized to analyze model effectiveness.
 
----
-
-## 📊 Expected Outputs
-
-- Meta‑training loss curves over epochs
-- Verification accuracy (pair similarity)
-- Confusion matrix / classification report on the test split
-- Example predictions/visualizations
-
-> Results will vary by split and hyperparameters; meta‑learning typically delivers **strong few‑shot performance** relative to standard training.
-
----
-
-## 🗂 Recommended Repo Structure (as uploaded)
-
-```
-.
-├── Face recognition.ipynb
-├── dataset/
-├── requirements.txt
-├── System Requirements.txt
-├── README.md
-└── .gitignore
+## Running the Code
+To run the project, ensure Python and the required libraries are installed. Adjust paths and parameters as necessary for your environment and dataset location.
+```python
+``Final Project\Face Recognition.ipynb"``
 ```
 
----
 
-## 🔒 License & Data
+## Results and Visualizations
+Results include meta-training loss trends over epochs, training/validation accuracy, and loss plots. Visualizations such as confusion matrices and sample image predictions provide insights into model performance and behavior.
 
-- Code: MIT license (see `LICENSE`).
-- Dataset: These `.pgm` faces are commonly derived from educational face datasets.  
-  If you distribute publicly, verify the dataset’s license/terms for redistribution.
-
----
-
-## 🧽 Housekeeping
-
-- Large/temporary files are ignored via `.gitignore` (e.g., `__pycache__/`, `.ipynb_checkpoints/`, virtualenvs).
-- Keep raw data small. For very large assets, consider Git LFS or a download link instead of committing binaries.
-
----
-
-## 🙋 FAQ
-
-**Q: Can I run this without a GPU?**  
-A: Yes, but training will be slower. TensorFlow CPU is fine for small experiments.
-
-**Q: Can I add new people with a few photos each?**  
-A: That’s exactly what meta‑learning is good at—fine‑tune with a handful of images per new identity.
-
----
-
-
-
-Happy experimenting! 🎉
+## Conclusion
+This project demonstrates the application of Model-Agnostic Meta-Learning (MAML) to enhance face recognition tasks. By leveraging meta-learning techniques, the model achieves efficient adaptation to new tasks with minimal training data, offering promising results in face recognition applications.
