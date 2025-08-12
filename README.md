@@ -1,4 +1,4 @@
-# Face Recognition Using Meta-Learning
+# Face Recognition Meta-Learning
 
 ## Overview
 This project implements a face recognition system using Model-Agnostic Meta-Learning (MAML). The system is designed to recognize individuals from facial images by leveraging meta-learning techniques. The goal is to enable the model to quickly adapt to new face recognition tasks with minimal training data.
