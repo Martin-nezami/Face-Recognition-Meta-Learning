@@ -21,8 +21,8 @@ The project is structured as follows:
 
 ## Setup and Installation
 ### Prerequisites
-- ```Python 3.x
-- ``pip (Python package installer)``
+```Python 3.x
+``pip (Python package installer)``
 
 ### Required Libraries
 Install the necessary libraries using pip:  
