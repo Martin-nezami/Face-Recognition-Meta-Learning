@@ -21,6 +21,7 @@ The project is structured as follows:
 
 ## Setup and Installation
 ### Prerequisites
+```bash
 ```Python 3.x```
 ``pip (Python package installer)``
 
